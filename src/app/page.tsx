@@ -31,6 +31,18 @@ export default function Home() {
 
   useEffect(() => {
     const supabase = createClient();
+
+    // Handle auth callback if code is present in URL
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    if (code) {
+      console.log("DEBUG: Auth code detected on home page:", code);
+      console.log("DEBUG: Redirecting to /auth/callback via window.location.href...");
+      // Using window.location.href ensures we bypass Next.js client-side routing
+      // and hit the server-side route handler directly.
+      window.location.href = `/auth/callback?code=${code}`;
+      return;
+    }
     
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user || null);

@@ -9,13 +9,15 @@ export async function GET(request: Request) {
     const next = searchParams.get('next') ?? '/'
 
     if (code) {
+        console.log("DEBUG: Callback route triggered with code:", code)
         const supabase = await createClient()
         const { error } = await supabase.auth.exchangeCodeForSession(code)
+        
         if (!error) {
-            const forwardedHost = request.headers.get('x-forwarded-host') // original origin before load balancer
+            console.log("DEBUG: Successfully exchanged code for session. Redirecting...")
+            const forwardedHost = request.headers.get('x-forwarded-host')
             const isLocalEnv = process.env.NODE_ENV === 'development'
             if (isLocalEnv) {
-                // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
                 return NextResponse.redirect(`${origin}${next}`)
             } else if (forwardedHost) {
                 return NextResponse.redirect(`https://${forwardedHost}${next}`)
@@ -23,6 +25,9 @@ export async function GET(request: Request) {
                 return NextResponse.redirect(`${origin}${next}`)
             }
         }
+        console.error("DEBUG: Error exchanging code for session:", error)
+    } else {
+        console.warn("DEBUG: Callback route triggered without code parameter")
     }
 
     // return the user to an error page with instructions

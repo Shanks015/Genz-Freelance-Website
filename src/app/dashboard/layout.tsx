@@ -27,9 +27,22 @@ export default async function DashboardLayout({
                     PROJECT<span className="text-wasabi">DEV</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <span className="text-sm font-medium text-zinc-400 hidden sm:inline-block">
-                        {user.email}
-                    </span>
+                    <div className="flex items-center gap-3">
+                        {user.user_metadata?.avatar_url || user.user_metadata?.picture ? (
+                            <img 
+                                src={user.user_metadata.avatar_url || user.user_metadata.picture} 
+                                alt="Avatar" 
+                                className="w-10 h-10 rounded-full border-2 border-[#E0FF00]" 
+                            />
+                        ) : (
+                            <div className="w-10 h-10 rounded-full bg-zinc-800 border-2 border-[#E0FF00] flex items-center justify-center text-[#E0FF00] font-bold">
+                                {user.email?.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+                        <span className="text-sm font-medium text-zinc-400 hidden sm:inline-block">
+                            {user.email}
+                        </span>
+                    </div>
                     <form action="/auth/signout" method="post">
                         <button className="text-sm font-bold text-white hover:text-wasabi underline decoration-2 underline-offset-4">
                             Sign out

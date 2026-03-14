@@ -61,6 +61,7 @@ export default function AdminDashboard() {
     const supabase = createClient();
 
     const [projects, setProjects] = useState<Project[]>([]);
+    const [user, setUser] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
     const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -84,11 +85,12 @@ export default function AdminDashboard() {
     useEffect(() => {
         const init = async () => {
             // ── Admin Guard ──────────────────────────────────────────────
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user || user.email !== ADMIN_EMAIL) {
+            const { data: { user: currentUser } } = await supabase.auth.getUser();
+            if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
                 router.replace("/");
                 return;
             }
+            setUser(currentUser);
             setIsAdmin(true);
             // ─────────────────────────────────────────────────────────────
 
@@ -201,21 +203,34 @@ export default function AdminDashboard() {
 
                 {/* ── Header ── */}
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6" style={{ borderBottom: "2px solid #27272a" }}>
-                    <div>
-                        <div className="flex items-center gap-4 mb-2">
-                            <button 
-                                onClick={async () => {
-                                    await supabase.auth.signOut();
-                                    router.replace("/");
-                                }} 
-                                className="text-red-500/70 text-xs font-bold hover:text-red-500 tracking-widest uppercase"
-                            >
-                                Sign Out
-                            </button>
+                    <div className="flex items-center gap-6">
+                        {user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
+                            <img 
+                                src={user.user_metadata.avatar_url || user.user_metadata.picture} 
+                                alt="Admin Avatar" 
+                                className="w-16 h-16 rounded-2xl border-2 border-[#8B5CF6] shadow-[4px_4px_0px_0px_#8B5CF6]" 
+                            />
+                        ) : (
+                            <div className="w-16 h-16 rounded-2xl bg-zinc-900 border-2 border-[#8B5CF6] shadow-[4px_4px_0px_0px_#8B5CF6] flex items-center justify-center text-[#8B5CF6] font-black text-2xl">
+                                {user?.email?.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+                        <div>
+                            <div className="flex items-center gap-4 mb-2">
+                                <button 
+                                    onClick={async () => {
+                                        await supabase.auth.signOut();
+                                        router.replace("/");
+                                    }} 
+                                    className="text-red-500/70 text-xs font-bold hover:text-red-500 tracking-widest uppercase"
+                                >
+                                    Sign Out
+                                </button>
+                            </div>
+                            <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">
+                                Admin <span style={{ color: "#8B5CF6" }}>Command Center</span>
+                            </h1>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter">
-                            Admin <span style={{ color: "#8B5CF6" }}>Command Center</span>
-                        </h1>
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="relative" ref={notificationRef}>

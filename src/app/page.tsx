@@ -68,13 +68,13 @@ export default function Home() {
         transition={{ type: "spring", stiffness: 300, damping: 24 }}
         className="flex justify-between items-center mb-16"
       >
-        <div className="text-2xl font-black tracking-tighter">
-          PROJECT<span style={{ color: "#E0FF00" }}>DEV</span>
+        <div className="text-xl sm:text-2xl font-black tracking-tighter shrink-0">
+          BETTERCALL<span style={{ color: "#E0FF00" }}>SAI</span>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 sm:gap-4 items-center">
           {!loading && user ? (
             <>
-              <div className="hidden sm:flex items-center gap-3 mr-2">
+              <div className="hidden md:flex items-center gap-3 mr-2">
                 {user.user_metadata?.avatar_url ? (
                   <img src={user.user_metadata.avatar_url} alt="Avatar" className="w-10 h-10 rounded-full border-2 border-[#E0FF00]" />
                 ) : (
@@ -88,7 +88,7 @@ export default function Home() {
               </div>
               <Button
                 variant="outline"
-                className="hidden sm:inline-flex border-zinc-700 text-zinc-300 bg-black hover:bg-zinc-900 hover:text-white border-2"
+                className="border-zinc-700 text-zinc-300 bg-black hover:bg-zinc-900 hover:text-white border-2 text-[10px] sm:text-xs md:text-sm px-2 sm:px-4 h-8 sm:h-10"
                 onClick={async () => {
                   const supabase = createClient();
                   await supabase.auth.signOut();
@@ -98,31 +98,23 @@ export default function Home() {
                 Logout
               </Button>
               <Button
-                className="bg-[#E0FF00] border-[#E0FF00] text-black hover:bg-[#c9e500]"
+                className="bg-[#E0FF00] border-[#E0FF00] text-black hover:bg-[#c9e500] text-[10px] sm:text-xs md:text-sm px-2 sm:px-4 h-8 sm:h-10"
                 onClick={() => router.push("/dashboard")}
               >
                 Dashboard
               </Button>
-              {user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-                <Button
-                  className="bg-[#8B5CF6] border-[#8B5CF6] text-white hover:bg-[#7c3aed]"
-                  onClick={() => router.push("/admin")}
-                >
-                  Admin Center
-                </Button>
-              )}
             </>
           ) : (
             <>
               <Button
                 variant="outline"
-                className="hidden sm:inline-flex border-white text-white bg-black hover:bg-zinc-900 border-2"
+                className="border-white text-white bg-black hover:bg-zinc-900 border-2 text-[10px] sm:text-xs md:text-sm px-2 sm:px-4 h-8 sm:h-10"
                 onClick={() => router.push("/login")}
               >
-                Client Login
+                Login
               </Button>
               <Button
-                className="bg-[#E0FF00] border-[#E0FF00] text-black hover:bg-[#c9e500]"
+                className="bg-[#E0FF00] border-[#E0FF00] text-black hover:bg-[#c9e500] text-[10px] sm:text-xs md:text-sm px-2 sm:px-4 h-8 sm:h-10"
                 onClick={() => router.push("/login")}
               >
                 Start a Project
@@ -137,12 +129,12 @@ export default function Home() {
         variants={containerVariants}
         initial="hidden"
         animate="show"
-        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]"
+        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-[240px]"
       >
         {/* Main Hero Card */}
         <motion.div
           variants={itemVariants}
-          className="col-span-1 md:col-span-2 row-span-2 border-2 border-black p-8 md:p-12 flex flex-col justify-between overflow-hidden relative"
+          className="col-span-1 md:col-span-2 md:row-span-2 border-2 border-black p-6 sm:p-8 md:p-12 flex flex-col justify-between overflow-hidden relative min-h-[300px] md:min-h-0"
           style={{
             backgroundColor: "#8B5CF6",
             boxShadow: "4px 4px 0px 0px rgba(0,0,0,1)",
@@ -150,10 +142,10 @@ export default function Home() {
           }}
         >
           <div className="relative z-10 max-w-lg">
-            <h1 className="text-5xl md:text-7xl font-black leading-[0.9] text-black uppercase tracking-tighter mb-6">
-              Ship software faster.
+            <h1 className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black leading-[0.9] text-black uppercase tracking-tighter mb-6">
+              Better Call Sai.
             </h1>
-            <p className="text-xl md:text-2xl font-medium text-black/80 max-w-md">
+            <p className="text-lg md:text-2xl font-medium text-black/80 max-w-md">
               Submit your idea. Get a quote. Watch me cook.
             </p>
           </div>
@@ -223,7 +215,7 @@ export default function Home() {
         {/* Chat/Media Card */}
         <motion.div
           variants={itemVariants}
-          className="col-span-1 md:col-span-3 bg-zinc-900 border-2 border-zinc-700 p-8 flex flex-col md:flex-row items-center justify-between gap-8"
+          className="col-span-1 md:col-span-3 bg-zinc-900 border-2 border-zinc-700 p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8"
           style={{ boxShadow: "4px 4px 0px 0px rgba(255,255,255,0.1)", borderRadius: "24px" }}
         >
           <div className="max-w-xl">

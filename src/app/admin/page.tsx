@@ -335,7 +335,7 @@ export default function AdminDashboard() {
                             style={{ border: "2px solid #3f3f46", borderRadius: "14px" }}
                         />
                     </div>
-                    <div className="flex items-center gap-2 flex-wrap">
+                    <div className="flex items-center gap-2 flex-nowrap overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
                         <Filter size={14} className="text-zinc-500 shrink-0" />
                         {(["All", ...ALL_STATUSES] as (ProjectStatus | "All")[]).map(s => {
                             const isActive = filterStatus === s;
@@ -389,9 +389,9 @@ export default function AdminDashboard() {
                                     {/* ── Row Header ── */}
                                     <div className="p-5 md:p-6 flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                                         {/* Left: title + meta */}
-                                        <div className="flex-1 min-w-0">
+                                        <div className="flex-1 min-w-0 w-full">
                                             <div className="flex items-center gap-3 flex-wrap mb-1">
-                                                <h3 className="text-xl font-black uppercase truncate">{project.title}</h3>
+                                                <h3 className="text-lg sm:text-xl font-black uppercase truncate">{project.title}</h3>
                                                 {isUrgent && (
                                                     <span className="px-2 py-0.5 text-xs font-black uppercase tracking-wider flex-shrink-0" style={{ backgroundColor: "#ef4444", color: "#fff", border: "2px solid black", borderRadius: "8px" }}>
                                                         🔥 Rush

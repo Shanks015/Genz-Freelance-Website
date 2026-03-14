@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function DashboardLayout({
@@ -22,29 +23,29 @@ export default async function DashboardLayout({
 
     return (
         <div className="min-h-screen bg-black text-white font-sans selection:bg-wasabi selection:text-black">
-            <header className="border-b-2 border-neo border-zinc-800 p-4 shrink-0 flex items-center justify-between">
-                <div className="text-xl font-black tracking-tighter">
-                    PROJECT<span className="text-wasabi">DEV</span>
-                </div>
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-3">
+            <header className="border-b-2 border-neo border-zinc-800 p-3 sm:p-4 shrink-0 flex items-center justify-between">
+                <Link href="/" className="text-lg sm:text-xl font-black tracking-tighter hover:opacity-80 transition-opacity shrink-0">
+                    BETTERCALL<span className="text-wasabi">SAI</span>
+                </Link>
+                <div className="flex items-center gap-2 sm:gap-4">
+                    <div className="flex items-center gap-2 sm:gap-3">
                         {user.user_metadata?.avatar_url || user.user_metadata?.picture ? (
                             <img 
                                 src={user.user_metadata.avatar_url || user.user_metadata.picture} 
                                 alt="Avatar" 
-                                className="w-10 h-10 rounded-full border-2 border-[#E0FF00]" 
+                                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#E0FF00]" 
                             />
                         ) : (
-                            <div className="w-10 h-10 rounded-full bg-zinc-800 border-2 border-[#E0FF00] flex items-center justify-center text-[#E0FF00] font-bold">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-zinc-800 border-2 border-[#E0FF00] flex items-center justify-center text-[#E0FF00] font-bold text-xs sm:text-sm">
                                 {user.email?.charAt(0).toUpperCase()}
                             </div>
                         )}
-                        <span className="text-sm font-medium text-zinc-400 hidden sm:inline-block">
+                        <span className="text-xs sm:text-sm font-medium text-zinc-400 hidden lg:inline-block">
                             {user.email}
                         </span>
                     </div>
                     <form action="/auth/signout" method="post">
-                        <button className="text-sm font-bold text-white hover:text-wasabi underline decoration-2 underline-offset-4">
+                        <button className="text-xs sm:text-sm font-bold text-white hover:text-wasabi underline decoration-2 underline-offset-4">
                             Sign out
                         </button>
                     </form>

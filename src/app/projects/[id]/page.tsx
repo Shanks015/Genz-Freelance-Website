@@ -483,7 +483,7 @@ export default function ProjectChat({ params }: { params: Promise<{ id: string }
                         ← Back
                     </button>
                     <div>
-                        <h1 className="text-2xl font-black uppercase tracking-tighter">
+                        <h1 className="text-lg sm:text-2xl font-black uppercase tracking-tighter truncate max-w-[150px] sm:max-w-none">
                             Project: <span style={{ color: "#E0FF00" }}>{projectTitle}</span>
                         </h1>
                     </div>
@@ -715,7 +715,7 @@ export default function ProjectChat({ params }: { params: Promise<{ id: string }
                                 whileHover={{ y: -2, x: -2 }}
                                 whileTap={{ y: 2, x: 2 }}
                                 disabled={!inputText.trim()}
-                                className="w-14 h-14 flex items-center justify-center font-bold disabled:opacity-40"
+                                className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center font-bold disabled:opacity-40"
                                 style={{
                                     backgroundColor: "#E0FF00",
                                     border: "2px solid black",
@@ -731,7 +731,7 @@ export default function ProjectChat({ params }: { params: Promise<{ id: string }
                                 whileHover={{ y: -2, x: -2 }}
                                 whileTap={{ y: 2, x: 2 }}
                                 onClick={isRecording ? stopRecording : startRecording}
-                                className="w-14 h-14 flex items-center justify-center"
+                                className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center"
                                 style={{
                                     backgroundColor: isRecording ? "#ef4444" : "#8B5CF6",
                                     border: "2px solid black",

@@ -35,13 +35,13 @@ export default function LoginPage() {
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                className="max-w-md w-full bg-white border-2 border-black p-10 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-3xl"
+                className="max-w-md w-full bg-white border-2 border-black p-6 sm:p-10 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-3xl"
             >
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl font-black uppercase tracking-tighter text-black mb-2">
-                        Project<span style={{ color: "#8B5CF6" }}>Dev</span>
+                    <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tighter text-black mb-2">
+                        BETTERCALL<span style={{ color: "#8B5CF6" }}>SAI</span>
                     </h1>
-                    <p className="text-zinc-600 font-medium">
+                    <p className="text-sm sm:text-base text-zinc-600 font-medium">
                         Log in to vibe check your next project.
                     </p>
                 </div>

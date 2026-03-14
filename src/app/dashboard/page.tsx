@@ -332,7 +332,7 @@ export default function CustomerDashboard() {
     };
     // ----------------------------
 
-    const upiUrl = `upi://pay?pa=${UPI_ID}&pn=ProjectDev&am=${dynamicPrice}`;
+    const upiUrl = `upi://pay?pa=${UPI_ID}&pn=BETTERCALLSAI&am=${dynamicPrice}`;
 
     return (
         <div className="min-h-screen p-4 md:p-8 font-sans bg-black text-white max-w-7xl mx-auto space-y-6">
@@ -345,10 +345,10 @@ export default function CustomerDashboard() {
                 style={{ border: "2px solid #3f3f46", borderBottom: "4px solid #8B5CF6", borderRadius: "24px" }}
             >
                 <div>
-                    <h1 className="text-4xl md:text-5xl font-black uppercase text-white">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase text-white">
                         {showForm ? "New Project 🍳" : "My Projects 🚀"}
                     </h1>
-                    <p className="text-zinc-400 font-medium mt-2 text-lg">
+                    <p className="text-zinc-400 font-medium mt-2 text-base sm:text-lg">
                         {showForm ? "Drop the vision. Get an instant quote. Let's build something crazy." : "Track your projects and chat with the dev."}
                     </p>
                 </div>
@@ -370,7 +370,7 @@ export default function CustomerDashboard() {
                                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                    className="absolute right-0 top-full mt-2 w-80 bg-zinc-900 border-2 border-zinc-800 rounded-2xl shadow-2xl overflow-hidden z-50 text-left"
+                                    className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-zinc-900 border-2 border-zinc-800 rounded-2xl shadow-2xl overflow-hidden z-50 text-left"
                                     style={{ boxShadow: "4px 4px 0px 0px rgba(0,0,0,1)" }}
                                 >
                                     <div className="p-4 border-b-2 border-zinc-800 flex justify-between items-center bg-black">
@@ -416,7 +416,7 @@ export default function CustomerDashboard() {
 
                     <button
                         onClick={() => setShowForm(!showForm)}
-                        className="flex items-center gap-2 px-5 py-3 font-black text-sm uppercase tracking-wider transition-all shrink-0"
+                        className="flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-3 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shrink-0"
                         style={{
                             background: showForm ? "#3f3f46" : "#E0FF00",
                             color: showForm ? "#fff" : "#000",
@@ -425,7 +425,7 @@ export default function CustomerDashboard() {
                             boxShadow: "3px 3px 0px 0px rgba(0,0,0,1)",
                         }}
                     >
-                        {showForm ? <X size={16} /> : <Plus size={16} />}
+                        {showForm ? <X size={14} /> : <Plus size={14} />}
                         {showForm ? "Cancel" : "New Project"}
                     </button>
                 </div>

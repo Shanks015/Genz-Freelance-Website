@@ -9,27 +9,30 @@ export async function GET(request: Request) {
     const next = searchParams.get('next') ?? '/'
 
     if (code) {
-        console.log("DEBUG: Callback route triggered with code:", code)
+        console.log("DEBUG: Callback route triggered with code:", code.substring(0, 10) + "...")
         const supabase = await createClient()
         const { error } = await supabase.auth.exchangeCodeForSession(code)
         
         if (!error) {
-            console.log("DEBUG: Successfully exchanged code for session. Redirecting...")
+            console.log("DEBUG: Successfully exchanged code for session. Redirecting to:", next)
             const forwardedHost = request.headers.get('x-forwarded-host')
+            const protocol = request.headers.get('x-forwarded-proto') || 'http'
             const isLocalEnv = process.env.NODE_ENV === 'development'
+            
             if (isLocalEnv) {
                 return NextResponse.redirect(`${origin}${next}`)
             } else if (forwardedHost) {
-                return NextResponse.redirect(`https://${forwardedHost}${next}`)
+                return NextResponse.redirect(`${protocol}://${forwardedHost}${next}`)
             } else {
                 return NextResponse.redirect(`${origin}${next}`)
             }
         }
-        console.error("DEBUG: Error exchanging code for session:", error)
+        console.error("DEBUG: Error exchanging code for session:", error.message, error)
+        return NextResponse.redirect(`${origin}/auth/auth-code-error?error=${encodeURIComponent(error.message)}`)
     } else {
         console.warn("DEBUG: Callback route triggered without code parameter")
     }
 
     // return the user to an error page with instructions
-    return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+    return NextResponse.redirect(`${origin}/auth/auth-code-error?error=Missing+code+parameter`)
 }

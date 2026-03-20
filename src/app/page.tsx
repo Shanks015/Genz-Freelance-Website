@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, type Variants } from "framer-motion";
@@ -37,10 +35,10 @@ export default function Home() {
     const code = params.get("code");
     if (code) {
       console.log("DEBUG: Auth code detected on home page:", code);
-      console.log("DEBUG: Redirecting to /auth/callback via window.location.href...");
-      // Using window.location.href ensures we bypass Next.js client-side routing
-      // and hit the server-side route handler directly.
-      window.location.href = `/auth/callback?code=${code}`;
+      // Construct the callback URL
+      const callbackUrl = `/auth/callback?code=${code}${params.has('next') ? `&next=${params.get('next')}` : ''}`;
+      console.log("DEBUG: Redirecting to:", callbackUrl);
+      window.location.href = callbackUrl;
       return;
     }
     

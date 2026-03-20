@@ -15,17 +15,7 @@ export async function GET(request: Request) {
         
         if (!error) {
             console.log("DEBUG: Successfully exchanged code for session. Redirecting to:", next)
-            const forwardedHost = request.headers.get('x-forwarded-host')
-            const protocol = request.headers.get('x-forwarded-proto') || 'http'
-            const isLocalEnv = process.env.NODE_ENV === 'development'
-            
-            if (isLocalEnv) {
-                return NextResponse.redirect(`${origin}${next}`)
-            } else if (forwardedHost) {
-                return NextResponse.redirect(`${protocol}://${forwardedHost}${next}`)
-            } else {
-                return NextResponse.redirect(`${origin}${next}`)
-            }
+            return NextResponse.redirect(`${origin}${next}`)
         }
         console.error("DEBUG: Error exchanging code for session:", error.message, error)
         return NextResponse.redirect(`${origin}/auth/auth-code-error?error=${encodeURIComponent(error.message)}`)
